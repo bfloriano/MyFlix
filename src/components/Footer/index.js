@@ -5,7 +5,7 @@ import logoY from '../../assets/logoY.png';
 function Footer() {
   return (
     <FooterBase>
-      <a href="https://www.alura.com.br/">
+      <a href="https://www.github.com/bfloriano/myFlix">
         <img className='Logo' src={logoY} alt='BruFlix logo' />
       </a>
       <p>
