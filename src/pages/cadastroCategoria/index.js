@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import PageDefault from "../../components/PageDefault";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import Button from '../../components/Button';
+import FormField from '../../components/FormField';
+import PageDefault from '../../components/PageDefault';
+import './style.css';
 
 function CadastroCategoria() {
-  const [categorias, setCategorias] = useState([]);
-
   const startValues = {
-    name: "teste",
-    description: "resre",
-    color: "#000",
+    name: '',
+    description: '',
+    color: '',
   };
 
+  const [categorias, setCategorias] = useState([]);
   const [values, setValues] = useState(startValues);
 
   const setValue = (key, value) => {
@@ -21,65 +22,53 @@ function CadastroCategoria() {
   };
 
   const change = (info) => {
-    setValue(info.target.getAttribute("name"), info.target.value);
+    setValue(info.target.getAttribute('name'), info.target.value);
   };
 
   return (
-    <PageDefault>
-      <h1>Cadastro de Categorias: {values.name}</h1>
-
+    <PageDefault className="pageCCategory">
       <form
+        className="cCategory__form"
         onSubmit={function handleSubmit(info) {
           info.preventDefault();
           setCategorias([...categorias, values]);
+          setValues(startValues);
         }}
       >
-        <div>
-          <label>
-            Nome da Categoria:
-            <input
-              type="text"
-              value={values.name}
-              name="name"
-              onChange={change}
-            />
-          </label>
-        </div>
+        <FormField
+          label="Nome da Categoria"
+          type="text"
+          name="name"
+          value={values.name}
+          onChange={change}
+        />
+        <FormField
+          label="Descrição"
+          type="textarea"
+          name="description"
+          value={values.description}
+          onChange={change}
+        />
+        <FormField
+          label="Cor"
+          type="color"
+          name="color"
+          value={values.color}
+          onChange={change}
+        />
 
-        <div>
-          <label>
-            Descrição:
-            <textarea
-              type="text"
-              value={values.description}
-              name="description"
-              onChange={change}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label>
-            Cor:
-            <input
-              type="color"
-              value={values.color}
-              name="color"
-              onChange={change}
-            />
-          </label>
-        </div>
-
-        <button>Cadastrar</button>
+        <Button className="cCategory__button">Cadastrar</Button>
       </form>
-
-      <ul>
-        {categorias.map((categoria, indice) => {
-          return <li key={indice}>{categoria.name}</li>;
-        })}
-      </ul>
-
-      <Link to="/">Home</Link>
+      <section className="containerCCategory">
+        <h1 className="cCategory__title">
+          Cadastro de Categorias:
+          <br />
+          {values.name}
+        </h1>
+        <ul className="listCategory">
+          {categorias.map((categoria) => <li key={`${categoria.name}`}>{categoria.name}</li>)}
+        </ul>
+      </section>
     </PageDefault>
   );
 }
